@@ -1,12 +1,12 @@
 //settings are just variables that can be sent to the client from the server
-//they are either related to the rooms or shared with the server 
+//they are either related to the rooms or shared with the server
 module.exports.SETTINGS = {
     //if not specified by the url where is the starting point
     defaultRoom: "likelikeOutside",
     //minimum time between talk messages enforced by both client and server
     ANTI_SPAM: 1000,
     //shows up at first non lurking login
-    INTRO_TEXT: "Click/tap to move"
+    INTRO_TEXT: "Click/tap to move",
 };
 
 //miscellaneous assets to preload
@@ -30,7 +30,7 @@ module.exports.IMAGES = [
     ["boyfriendWalk", "child-boyfriend.png"],
     ["boyfriendEmote", "child-boyfriend-emote.png"],
     ["flyWalk", "fly.png"],
-    ["flyEmote", "fly-emote.png"]
+    ["flyEmote", "fly-emote.png"],
 ];
 
 //miscellaneous sounds to preload
@@ -38,11 +38,10 @@ module.exports.SOUNDS = [
     ["beat1", "beat1.ogg"], //credit https://www.youtube.com/watch?v=ugLVpZm69DE
     ["beat2", "beat2.ogg"], // credit https://www.youtube.com/watch?v=dPdoxIz0w24
     ["beat3", "beat3.ogg"], //credit https://www.youtube.com/watch?v=XShEWT4MwJs
-    ["DJStop", "DJStop.mp3"]
+    ["DJStop", "DJStop.mp3"],
 ];
 
 module.exports.ROOMS = {
-
     likelike: {
         //the background graphics, it can be a spreadsheet
         bg: "likelike-bg-pico.png",
@@ -81,20 +80,70 @@ module.exports.ROOMS = {
             //align: center or left
             //lines: manual number of lines, p5 doesn't understand line breaks
             //url: uptionally open a page on click
-            hff004d: { cmd: "text", txt: "ENNUIGI\nby Josh Millard, 2015\nClick to play.\nControls: Arrow keys.", align: "left", lines: 4, url: "https://www.lexaloffle.com/bbs/?tid=2232", label: "An existential game", point: [34, 78], obstacle: true },
-            hff77a8: { cmd: "text", txt: "STRUNG OUT IN HEAVEN'S HIGH\nby Sean S. LeBlanc\nand Ian Martin, 2016\nClick to play.\nControls: Arrow keys + Z.", align: "left", lines: 5, url: "https://www.lexaloffle.com/bbs/?tid=3941", label: "A trippy game", point: [64, 78], obstacle: true },
-            hffccaa: { cmd: "text", txt: "GET COMFORTABLE\nby mcccclean, 2018\nClick to play.\nControls: Arrow keys.", align: "left", lines: 4, url: "https://mcccclean.itch.io/get-comfortable", label: "A snuggly game", point: [92, 78], obstacle: true },
-            h83769c: { cmd: "text", txt: "HYBRIS\nby Benjamin Soule', 2015\nClick to play.\nControls: Arrow keys + Z.", align: "left", lines: 4, url: "https://www.lexaloffle.com/bbs/?tid=2897", label: "A viral game", point: [16, 82], obstacle: true },
+            hff004d: {
+                cmd: "text",
+                txt: "ENNUIGI\nby Josh Millard, 2015\nClick to play.\nControls: Arrow keys.",
+                align: "left",
+                lines: 4,
+                url: "https://www.lexaloffle.com/bbs/?tid=2232",
+                label: "An existential game",
+                point: [34, 78],
+                obstacle: true,
+            },
+            hff77a8: {
+                cmd: "text",
+                txt: "STRUNG OUT IN HEAVEN'S HIGH\nby Sean S. LeBlanc\nand Ian Martin, 2016\nClick to play.\nControls: Arrow keys + Z.",
+                align: "left",
+                lines: 5,
+                url: "https://www.lexaloffle.com/bbs/?tid=3941",
+                label: "A trippy game",
+                point: [64, 78],
+                obstacle: true,
+            },
+            hffccaa: {
+                cmd: "text",
+                txt: "GET COMFORTABLE\nby mcccclean, 2018\nClick to play.\nControls: Arrow keys.",
+                align: "left",
+                lines: 4,
+                url: "https://mcccclean.itch.io/get-comfortable",
+                label: "A snuggly game",
+                point: [92, 78],
+                obstacle: true,
+            },
+            h83769c: {
+                cmd: "text",
+                txt: "HYBRIS\nby Benjamin Soule', 2015\nClick to play.\nControls: Arrow keys + Z.",
+                align: "left",
+                lines: 4,
+                url: "https://www.lexaloffle.com/bbs/?tid=2897",
+                label: "A viral game",
+                point: [16, 82],
+                obstacle: true,
+            },
         },
         //list of sprites to create in the room
         //sprites are rendered according to depth sort so they can appear above the avatars unlike the background
         //they can be animated, mouse reactive and trigger commands like the areas above
         things: {
             //sprite spreadsheets only 1 row ok?
-            cabinet: { file: "top-cabinet-pico.png", frames: 1, frameDelay: 1, position: [24, 89], label: "A huggy game", command: { cmd: "text", txt: "EMBRACE\nby Remy Devaux, 2018\nClick to play.\nControls: Arrow keys.", align: "left", lines: 4, url: "https://trasevol-dog.itch.io/embrace", label: "A huggy game", point: [33, 92] } }
-        }
+            cabinet: {
+                file: "top-cabinet-pico.png",
+                frames: 1,
+                frameDelay: 1,
+                position: [24, 89],
+                label: "A huggy game",
+                command: {
+                    cmd: "text",
+                    txt: "EMBRACE\nby Remy Devaux, 2018\nClick to play.\nControls: Arrow keys.",
+                    align: "left",
+                    lines: 4,
+                    url: "https://trasevol-dog.itch.io/embrace",
+                    label: "A huggy game",
+                    point: [33, 92],
+                },
+            },
+        },
     },
-
 
     likelikeBitsy: {
         //the background graphics, it can be a spreadsheet
@@ -132,20 +181,88 @@ module.exports.ROOMS = {
             //align: center or left
             //lines: manual number of lines, p5 doesn't understand line breaks
             //url: uptionally open a page on click
-            hff004d: { cmd: "text", txt: "OUR DAMNED MACHINE\nby Sophie Houlden, 2018\nClick on the frame to start.\nWASD or Arrow keys to move.", align: "left", lines: 4, url: "https://sophieh.itch.io/our-damned-machine", label: "A dystopian game", point: [34, 78], obstacle: true },
-            hff77a8: { cmd: "text", txt: "CONTINENTAL DRIFT\nby Cecile Richard, 2019\nWASD or Arrow keys to move.\nClick to play.", align: "left", lines: 4, url: "https://haraiva.itch.io/continental-drift", label: "An intimate game", point: [64, 78], obstacle: true },
-            hffccaa: { cmd: "text", txt: "SPIRAL HOUSE\nby Withering Systems (Everest Pipkin and Loren Schmidt), 2018\nWASD or Arrow keys to move.\nClick to play.", align: "left", lines: 5, url: "https://withering-systems.itch.io/spiral-house", label: "An abstract game", point: [92, 78], obstacle: true },
-            hab5236: { cmd: "text", txt: "ALMANAC OF GIRLSWAMPWAR TERRITORY\nby porpentine charity heartscape, 2018\nWASD or Arrow keys to move.\nClick to play.", align: "left", lines: 5, url: "https://porpentine.itch.io/almanac", label: "A mutant game", point: [110, 82], obstacle: true },
-            h83769c: { cmd: "text", txt: "MOSS AS TEXTURE AS SPACE\nFOLDING ONTO ITSELF\nby Pol Clarissou, 2019\nWASD or Arrow keys to move.\nClick to play.", align: "left", lines: 5, url: "https://polclarissou.itch.io/moss-as-texture-as-space-folding-onto-itself", label: "A mossy game", point: [16, 82], obstacle: true },
-            hffa300: { cmd: "text", txt: "LIKELIKE\npresents:\nAn Itsy Bitsy Crisis\nCatastrophes and Rebirths in Bitsy", align: "center", lines: 4, label: "Wall text", point: [119, 95], obstacle: false }
+            hff004d: {
+                cmd: "text",
+                txt: "OUR DAMNED MACHINE\nby Sophie Houlden, 2018\nClick on the frame to start.\nWASD or Arrow keys to move.",
+                align: "left",
+                lines: 4,
+                url: "https://sophieh.itch.io/our-damned-machine",
+                label: "A dystopian game",
+                point: [34, 78],
+                obstacle: true,
+            },
+            hff77a8: {
+                cmd: "text",
+                txt: "CONTINENTAL DRIFT\nby Cecile Richard, 2019\nWASD or Arrow keys to move.\nClick to play.",
+                align: "left",
+                lines: 4,
+                url: "https://haraiva.itch.io/continental-drift",
+                label: "An intimate game",
+                point: [64, 78],
+                obstacle: true,
+            },
+            hffccaa: {
+                cmd: "text",
+                txt: "SPIRAL HOUSE\nby Withering Systems (Everest Pipkin and Loren Schmidt), 2018\nWASD or Arrow keys to move.\nClick to play.",
+                align: "left",
+                lines: 5,
+                url: "https://withering-systems.itch.io/spiral-house",
+                label: "An abstract game",
+                point: [92, 78],
+                obstacle: true,
+            },
+            hab5236: {
+                cmd: "text",
+                txt: "ALMANAC OF GIRLSWAMPWAR TERRITORY\nby porpentine charity heartscape, 2018\nWASD or Arrow keys to move.\nClick to play.",
+                align: "left",
+                lines: 5,
+                url: "https://porpentine.itch.io/almanac",
+                label: "A mutant game",
+                point: [110, 82],
+                obstacle: true,
+            },
+            h83769c: {
+                cmd: "text",
+                txt: "MOSS AS TEXTURE AS SPACE\nFOLDING ONTO ITSELF\nby Pol Clarissou, 2019\nWASD or Arrow keys to move.\nClick to play.",
+                align: "left",
+                lines: 5,
+                url: "https://polclarissou.itch.io/moss-as-texture-as-space-folding-onto-itself",
+                label: "A mossy game",
+                point: [16, 82],
+                obstacle: true,
+            },
+            hffa300: {
+                cmd: "text",
+                txt: "LIKELIKE\npresents:\nAn Itsy Bitsy Crisis\nCatastrophes and Rebirths in Bitsy",
+                align: "center",
+                lines: 4,
+                label: "Wall text",
+                point: [119, 95],
+                obstacle: false,
+            },
         },
         //list of sprites to create in the room
         //sprites are rendered according to depth sort so they can appear above the avatars unlike the background
         //they can be animated, mouse reactive and trigger commands like the areas above
         things: {
             //sprite spreadsheets only 1 row ok?
-            cabinet: { file: "top-cabinet.png", frames: 1, frameDelay: 1, position: [24, 89], label: "A time traveling game", command: { cmd: "text", txt: "THE LAST HUMAN TOUCH\nby Cephalopodunk, 2018\nWASD or Arrow keys to move.\nClick to play.", align: "left", lines: 4, url: "https://cephalopodunk.itch.io/the-last-human-touch", label: "A time traveling game", point: [33, 92] } }
-        }
+            cabinet: {
+                file: "top-cabinet.png",
+                frames: 1,
+                frameDelay: 1,
+                position: [24, 89],
+                label: "A time traveling game",
+                command: {
+                    cmd: "text",
+                    txt: "THE LAST HUMAN TOUCH\nby Cephalopodunk, 2018\nWASD or Arrow keys to move.\nClick to play.",
+                    align: "left",
+                    lines: 4,
+                    url: "https://cephalopodunk.itch.io/the-last-human-touch",
+                    label: "A time traveling game",
+                    point: [33, 92],
+                },
+            },
+        },
     },
 
     likelikeOutside: {
@@ -161,7 +278,7 @@ module.exports.ROOMS = {
         areaColors: {
             //h will be replaced by #
             hff77a8: { cmd: "enter", room: "likelike", label: "Enter LIKELIKE", point: [100, 84], enterPoint: [104, 98], obstacle: false },
-        }
+        },
     },
 
     likelikeBackyard: {
@@ -180,26 +297,44 @@ module.exports.ROOMS = {
         },
         things: {
             //spreadsheets only 1 row ok?
-            harvey: { file: "harvey.png", frames: 2, frameDelay: 10, position: [102, 77], label: "Harvey", command: { cmd: "text", txt: "*You pet the dog*", align: "center", lines: 1, point: [101, 84] } },
+            harvey: {
+                file: "harvey.png",
+                frames: 2,
+                frameDelay: 10,
+                position: [102, 77],
+                label: "Harvey",
+                command: { cmd: "text", txt: "*You pet the dog*", align: "center", lines: 1, point: [101, 84] },
+            },
             chairs: { file: "likelike-backyard-chairs.png", position: [33, 44] },
             cabinet: {
-                file: "pico-cabinet.png", frames: 2, frameDelay: 10, position: [92, 26], label: "Looping animations?",
-                command: { cmd: "text", txt: "TWEETCARTS\nby Varius Creators\nThe code of each of these PICO-8 generated animations fits into a single tweet (280 chars).", align: "left", lines: 5, url: "https://twitter.com/molleindustria/timelines/1254605222455934978", label: "Short animations?", point: [96, 46] }
-            }
-        }
+                file: "pico-cabinet.png",
+                frames: 2,
+                frameDelay: 10,
+                position: [92, 26],
+                label: "Looping animations?",
+                command: {
+                    cmd: "text",
+                    txt:
+                        "TWEETCARTS\nby Varius Creators\nThe code of each of these PICO-8 generated animations fits into a single tweet (280 chars).",
+                    align: "left",
+                    lines: 5,
+                    url: "https://twitter.com/molleindustria/timelines/1254605222455934978",
+                    label: "Short animations?",
+                    point: [96, 46],
+                },
+            },
+        },
     },
 
     //just an empty room for testing mods
     experiments: {
-
         bg: "experiments-bg.png",
         avatarScale: 2,
         pageBg: "#bfaeae",
         area: "experiments-areas.png",
         tint: "#FFFFFF",
         bubblesY: 50,
-        spawn: [15, 77, 113, 96]
-
+        spawn: [15, 77, 113, 96],
     },
 
     firstFloor: {
@@ -218,10 +353,26 @@ module.exports.ROOMS = {
             //up
             h29adff: { cmd: "enter", room: "secondFloor", label: "2nd Floor", point: [30, 73], enterPoint: [99, 73], obstacle: false },
             //wall text
-            ha8e72e: { cmd: "text", txt: "ONLINE MUSEUM OF MULTIPLAYER ART\nA survey of contemporary playful art. You have to talk and interact with other visitors to get the art.", align: "left", lines: 5, label: "Wall text", point: [50, 73], obstacle: false },
-            hb7250b: { cmd: "text", txt: "Anomaly\nMixed media, subjectively perceived.", align: "left", lines: 3, label: "Installation?", point: [75, 77], obstacle: false },
+            ha8e72e: {
+                cmd: "text",
+                txt:
+                    "ONLINE MUSEUM OF MULTIPLAYER ART\nA survey of contemporary playful art. You have to talk and interact with other visitors to get the art.",
+                align: "left",
+                lines: 5,
+                label: "Wall text",
+                point: [50, 73],
+                obstacle: false,
+            },
+            hb7250b: {
+                cmd: "text",
+                txt: "Anomaly\nMixed media, subjectively perceived.",
+                align: "left",
+                lines: 3,
+                label: "Installation?",
+                point: [75, 77],
+                obstacle: false,
+            },
             hbe1250: { cmd: "enter", room: "likelike", label: "LIKELIKE Arcade", point: [63, 98], enterPoint: [116, 85], obstacle: false },
-
         },
         things: {
             //sprite spreadsheets only 1 row ok?
@@ -229,11 +380,10 @@ module.exports.ROOMS = {
             sculpture2: { file: "sculpture2.png", position: [70, 22], visible: false },
             sculpture3: { file: "sculpture3.png", position: [70, 22], visible: false },
             sculpture4: { file: "sculpture4.png", position: [70, 22], frames: 4, frameDelay: 10, visible: false },
-        }
+        },
     },
 
     secondFloor: {
-
         bg: "secondFloor.png",
         avatarScale: 2,
         pageBg: "#e1cdcd",
@@ -250,12 +400,10 @@ module.exports.ROOMS = {
             hff77a8: { cmd: "enter", room: "firstFloor", label: "1st Floor", point: [99, 73], enterPoint: [30, 73], obstacle: false },
             //up
             h29adff: { cmd: "enter", room: "thirdFloor", label: "3rd Floor", point: [30, 73], enterPoint: [99, 73], obstacle: false },
-
         },
     },
 
     thirdFloor: {
-
         bg: "thirdFloor.png",
         avatarScale: 2,
         pageBg: "#e1cdcd",
@@ -264,7 +412,6 @@ module.exports.ROOMS = {
         bubblesY: 46,
         spawn: [15, 77, 113, 96],
         areaColors: {
-
             //left
             hffec27: { cmd: "enter", room: "darkRoom", label: "Dark Room", point: [10, 86], enterPoint: [114, 86], obstacle: false },
 
@@ -277,7 +424,6 @@ module.exports.ROOMS = {
             //down
             hff77a8: { cmd: "enter", room: "secondFloor", label: "2nd Floor", point: [99, 73], enterPoint: [30, 73], obstacle: false },
         },
-
     },
 
     cnsnntrm: {
@@ -294,11 +440,9 @@ module.exports.ROOMS = {
         },
         things: {
             //sprite spreadsheets only 1 row ok?
-            guard: { file: "museumGuard.png", frames: 1, frameDelay: 30, position: [13, 56], label: "Museum guard" }
-        }
-
+            guard: { file: "museumGuard.png", frames: 1, frameDelay: 30, position: [13, 56], label: "Museum guard" },
+        },
     },
-
 
     mirrorRoom: {
         bg: "rightRoom.png",
@@ -311,8 +455,7 @@ module.exports.ROOMS = {
         areaColors: {
             //left
             hffec27: { cmd: "enter", room: "firstFloor", label: "Hall", point: [10, 86], enterPoint: [114, 86], obstacle: false },
-        }
-
+        },
     },
 
     censorshipRoom: {
@@ -326,12 +469,11 @@ module.exports.ROOMS = {
         areaColors: {
             //right
             h00e436: { cmd: "enter", room: "secondFloor", label: "Hall", point: [117, 86], enterPoint: [12, 86], obstacle: false },
-
         },
         things: {
             //sprite spreadsheets only 1 row ok?
-            elephant: { file: "elephant-no-outline.png", frames: 4, frameDelay: 30, position: [42, 51] }
-        }
+            elephant: { file: "elephant-no-outline.png", frames: 4, frameDelay: 30, position: [42, 51] },
+        },
     },
 
     rhymeRoom: {
@@ -347,9 +489,7 @@ module.exports.ROOMS = {
         areaColors: {
             //left
             hffec27: { cmd: "enter", room: "secondFloor", label: "Hall", point: [10, 86], enterPoint: [114, 86], obstacle: false },
-
-        }
-
+        },
     },
 
     darkRoom: {
@@ -365,9 +505,7 @@ module.exports.ROOMS = {
         areaColors: {
             //right
             h00e436: { cmd: "enter", room: "thirdFloor", label: "Hall", point: [117, 86], enterPoint: [12, 86], obstacle: false },
-
-        }
-
+        },
     },
 
     familyRoom: {
@@ -399,8 +537,7 @@ module.exports.ROOMS = {
             couch1: { file: "familyRoom-couch1.png", position: [26, 63] },
             table: { file: "familyRoom-table.png", position: [81, 74] },
             TV: { file: "tv.png", id: "TV", position: [33, 45], frames: 13, frameDelay: 60, visible: false },
-        }
-
+        },
     },
 
     VIPRoom: {
@@ -417,23 +554,61 @@ module.exports.ROOMS = {
         areaColors: {
             //right
             hff004d: { cmd: "text", label: "Painting", txt: "An original Rothko?", align: "center", lines: 1, point: [27, 65], obstacle: false },
-            h00e436: { cmd: "text", label: "Window", txt: "Can you see the incline from here?", align: "center", lines: 1, point: [33, 59], obstacle: false },
+            h00e436: {
+                cmd: "text",
+                label: "Window",
+                txt: "Can you see the incline from here?",
+                align: "center",
+                lines: 1,
+                point: [33, 59],
+                obstacle: false,
+            },
             hffec27: { cmd: "text", label: "Window", txt: "The Paris of Appalachia", align: "center", lines: 1, point: [53, 59], obstacle: false },
             h29adff: { cmd: "text", label: "Window", txt: "Ah... the city of bridges!", align: "center", lines: 1, point: [73, 59], obstacle: false },
-            hff6c24: { cmd: "text", label: "Window", txt: "Gentrification is beautiful", align: "center", lines: 1, point: [83, 59], obstacle: false },
-            hffccaa: { cmd: "text", label: "Cocktail", txt: "*You drink an Old fashioned*", align: "center", lines: 1, point: [45, 76], obstacle: false },
+            hff6c24: {
+                cmd: "text",
+                label: "Window",
+                txt: "Gentrification is beautiful",
+                align: "center",
+                lines: 1,
+                point: [83, 59],
+                obstacle: false,
+            },
+            hffccaa: {
+                cmd: "text",
+                label: "Cocktail",
+                txt: "*You drink an Old fashioned*",
+                align: "center",
+                lines: 1,
+                point: [45, 76],
+                obstacle: false,
+            },
             hff77a8: { cmd: "text", label: "Champagne", txt: "It's a magnum bottle", align: "center", lines: 1, point: [38, 76], obstacle: false },
-            hb7250b: { cmd: "text", label: "Caviar tartines", txt: "*You eat a tartine*", align: "center", lines: 1, point: [31, 76], obstacle: false },
-            hab5236: { cmd: "text", label: "Chocolate fountain", txt: "A little bit tacky", align: "center", lines: 1, point: [24, 76], obstacle: false },
-            h065ab5: { cmd: "enter", room: "thirdFloor", label: "Hall", point: [64, 79], enterPoint: [30, 73], obstacle: false }
+            hb7250b: {
+                cmd: "text",
+                label: "Caviar tartines",
+                txt: "*You eat a tartine*",
+                align: "center",
+                lines: 1,
+                point: [31, 76],
+                obstacle: false,
+            },
+            hab5236: {
+                cmd: "text",
+                label: "Chocolate fountain",
+                txt: "A little bit tacky",
+                align: "center",
+                lines: 1,
+                point: [24, 76],
+                obstacle: false,
+            },
+            h065ab5: { cmd: "enter", room: "thirdFloor", label: "Hall", point: [64, 79], enterPoint: [30, 73], obstacle: false },
         },
         things: {
             //sprite spreadsheets only 1 row ok?
             VIPSeats: { file: "VIP-seats.png", position: [43, 56] },
             VIPTable: { file: "VIP-table.png", position: [20, 65] },
             VIPCouch: { file: "VIP-couch.png", position: [87, 68] },
-        }
-
+        },
     },
-
 };

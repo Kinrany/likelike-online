@@ -11,7 +11,7 @@ module.exports.initMod = function (io, gameState, DATA) {
     console.log("MOD: Initialized");
 
     //EVERYTHING GLOBALLLLL
-    global.rita = require('rita');
+    global.rita = require("rita");
     global.gameState = gameState;
     global.io = io;
     global.DATA = DATA;
@@ -25,13 +25,12 @@ module.exports.initMod = function (io, gameState, DATA) {
         child3: "",
         uncle: "",
         milkman: "",
-        boyfriend: ""
+        boyfriend: "",
     };
 
     global.lastRhymes = [];
     global.rhymingPlayers = {};
     global.beatPlaying = false;
-
 
     global.paranoidTalk = [
         "Hey you",
@@ -49,12 +48,12 @@ module.exports.initMod = function (io, gameState, DATA) {
         "Listen",
         "Bots everywhere",
         "Hello",
-        "Another bot"
+        "Another bot",
     ];
 
     //load extended dictionary, this is 3Mb but only sits on the server and it's used by only one room
-    const fs = require('fs');
-    global.dictionary = fs.readFileSync('dictionary.json');
+    const fs = require("fs");
+    global.dictionary = fs.readFileSync("dictionary.json");
 
     //cycle through contraints in the consonant room
     global.consonant = 0;
@@ -66,44 +65,52 @@ module.exports.initMod = function (io, gameState, DATA) {
         }
         var msg = "";
 
-        if (global.consonant == 0) //a
+        if (global.consonant == 0) {
+            //a
             msg = "All art appalls a fan";
-        if (global.consonant == 1) //e
+        }
+        if (global.consonant == 1) {
+            //e
             msg = "Greet her when she enters";
-        if (global.consonant == 2) //i
+        }
+        if (global.consonant == 2) {
+            //i
             msg = "I sit ildly till twilight";
-        if (global.consonant == 3) //o
+        }
+        if (global.consonant == 3) {
+            //o
             msg = "No stools, no books: work protocol";
-        if (global.consonant == 4) //u
+        }
+        if (global.consonant == 4) {
+            //u
             msg = "But truth: dull suburbs turn fun";
-        if (global.consonant == 5) //none
+        }
+        if (global.consonant == 5) {
+            //none
             msg = "Tsk, tsk... try my rhythms";
-
+        }
 
         //sends a message to the room
-        io.to("cnsnntrm").emit('nonPlayerTalked', { id: "", labelColor: "#3e7eb0", room: "cnsnntrm", message: msg, x: 36, y: 56 });
-
+        io.to("cnsnntrm").emit("nonPlayerTalked", { id: "", labelColor: "#3e7eb0", room: "cnsnntrm", message: msg, x: 36, y: 56 });
     }, 60 * 1000); //every minute changes
 
     //global function ffs
     global.random = function (min, max) {
         return Math.random() * (max - min) + min;
-    }
-
+    };
 
     //Example of NPC creation and behavior
 
-    var npc = new NPC(
-        {
-            id: "paranoid",
-            nickName: "Anonymous",
-            room: "secondFloor",
-            x: 23,
-            y: 78,
-            avatar: 1,
-            colors: [2, 2, 1, 5],
-            labelColor: "#1e839d"
-        });
+    var npc = new NPC({
+        id: "paranoid",
+        nickName: "Anonymous",
+        room: "secondFloor",
+        x: 23,
+        y: 78,
+        avatar: 1,
+        colors: [2, 2, 1, 5],
+        labelColor: "#1e839d",
+    });
 
     npc.behavior = setTimeout(function ramble() {
         var dice = random(0, 100);
@@ -112,12 +119,10 @@ module.exports.initMod = function (io, gameState, DATA) {
             npc.talk(global.paranoidTalk[Math.floor(random(0, global.paranoidTalk.length - 1))]);
 
             npc.behavior = setTimeout(ramble, random(7000, 9000));
-        }
-        else if (dice < 60) {
+        } else if (dice < 60) {
             npc.move(random(17, 113) * 2, random(76, 98) * 2);
             npc.behavior = setTimeout(ramble, random(4000, 8000));
-        }
-        else {
+        } else {
             //just wait
             npc.behavior = setTimeout(ramble, random(1000, 3000));
 
@@ -125,79 +130,80 @@ module.exports.initMod = function (io, gameState, DATA) {
             //clearTimeout(npc.behavior);
             //npc.delete();
         }
-
-
     }, random(1000, 2000));
 
-
     global.VIPList = [];
-
-}
-
+};
 
 //custom function called on the server side when a player successfully enters or exits the room
 //executed before it's broadcast to the other players
 module.exports.experimentsJoin = function (player, roomId) {
     //console.log("MOD: " + player.nickName + " entered room " + roomId);
-}
+};
 
 module.exports.experimentsLeave = function (player, roomId) {
     //console.log("MOD: " + player.nickName + " exited room " + roomId);
-}
+};
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.experimentsTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
     //message = message.replace(/[aeiou]/ig, '');
     //make sure it returns a message
     return message;
-}
-
+};
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.VIPRoomTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
     message = global.rita.getPhonemes(message);
     message = message.replace(/-/g, "");
     //make sure it returns a message
     return message;
-}
+};
 
 //wouldn't it be funny if cetain rooms modified your messages?
 module.exports.cnsnntrmTalkFilter = function (player, message) {
-
     //console.log("MOD: " + player.nickName + " said " + message);
 
-    if (global.consonant == 0) //a
-        message = message.replace(/[eiou]/ig, 'a');
-    if (global.consonant == 1) //e
-        message = message.replace(/[aiou]/ig, 'e');
-    if (global.consonant == 2) //i
-        message = message.replace(/[aeou]/ig, 'i');
-    if (global.consonant == 3) //o
-        message = message.replace(/[aeiu]/ig, 'o');
-    if (global.consonant == 4) //u
-        message = message.replace(/[aeio]/ig, 'u');
-    if (global.consonant == 5) //none
-        message = message.replace(/[aeiou]/ig, '');
-
+    if (global.consonant == 0) {
+        //a
+        message = message.replace(/[eiou]/gi, "a");
+    }
+    if (global.consonant == 1) {
+        //e
+        message = message.replace(/[aiou]/gi, "e");
+    }
+    if (global.consonant == 2) {
+        //i
+        message = message.replace(/[aeou]/gi, "i");
+    }
+    if (global.consonant == 3) {
+        //o
+        message = message.replace(/[aeiu]/gi, "o");
+    }
+    if (global.consonant == 4) {
+        //u
+        message = message.replace(/[aeio]/gi, "u");
+    }
+    if (global.consonant == 5) {
+        //none
+        message = message.replace(/[aeiou]/gi, "");
+    }
 
     //make sure it returns a message
     return message;
-}
+};
 
-//words can only be used once 
+//words can only be used once
 module.exports.censorshipRoomTalkFilter = function (player, message) {
-
     //create a list of censored words
     if (global.forbiddenWords == null) {
         global.forbiddenWords = [];
     }
 
     //strip special characters
-    message = message.replace(/[`~!@#$%^&*()_|+\-=?;:",.<>\{\}\[\]\\\/]/gi, '');
+    message = message.replace(/[`~!@#$%^&*()_|+\-=?;:",.<>\{\}\[\]\\\/]/gi, "");
 
     //break down the message into words
     var words = message.split(" ");
@@ -205,7 +211,6 @@ module.exports.censorshipRoomTalkFilter = function (player, message) {
 
     //check each single word
     for (var j = 0; j < words.length; j++) {
-
         /*
         //remove repeated character if they occur more than twice like hellooooo > hello
         var word = words[j];
@@ -235,34 +240,32 @@ module.exports.censorshipRoomTalkFilter = function (player, message) {
             }
 
             censoredMessage += bleep;
-
-        }
-        else {
+        } else {
             censoredMessage += newWord;
             //not found add
             forbiddenWords.push(newWord.toLowerCase());
         }
 
-        if (j < words.length - 1)
+        if (j < words.length - 1) {
             censoredMessage += " ";
+        }
     }
 
-
     return censoredMessage;
-
-}
-
+};
 
 module.exports.rhymeRoomTalkFilter = function (player, message) {
     //
-    if (global.beat == null)
+    if (global.beat == null) {
         global.beat = 1;
+    }
 
     var arr = message.split(" ");
     var lastWord = "";
 
-    if (arr.length > 0)
+    if (arr.length > 0) {
         lastWord = arr[arr.length - 1].toLowerCase();
+    }
 
     //extended dictionary
     var exists = global.dictionary.indexOf(lastWord) != -1;
@@ -271,45 +274,43 @@ module.exports.rhymeRoomTalkFilter = function (player, message) {
     var lastRhyme = "";
     var used = false;
 
-
-    if (global.lastRhymes.length == 0)
+    if (global.lastRhymes.length == 0) {
         first = true;
-    else {
+    } else {
         used = global.lastRhymes.indexOf(lastWord) != -1;
 
         lastRhyme = global.lastRhymes[global.lastRhymes.length - 1].toLowerCase();
-
     }
 
     if (exists && !used) {
-
         var rhymes = false;
 
         //not first check the rhym
-        if (!first)
+        if (!first) {
             rhymes = global.rita.isRhyme(lastWord, lastRhyme);
+        }
 
         //start the battle
         if (first || rhymes) {
-
             if (global.beatPlaying == false) {
-
-                io.to("rhymeRoom").emit('musicOn', global.beat);
+                io.to("rhymeRoom").emit("musicOn", global.beat);
                 global.beatPlaying = true;
             }
 
             global.lastRhymes.push(lastWord);
 
             //create the rhyming player score
-            if (global.rhymingPlayers[player.nickName] == null)
+            if (global.rhymingPlayers[player.nickName] == null) {
                 global.rhymingPlayers[player.nickName] = 0;
+            }
 
             //calculate the score by counting the real words
             //skip the first
             if (global.lastRhymes.length > 1) {
                 for (var i = 0; i < arr.length; i++) {
-                    if (global.rita.containsWord(arr[i]))
+                    if (global.rita.containsWord(arr[i])) {
                         global.rhymingPlayers[player.nickName]++;
+                    }
                 }
             }
 
@@ -321,12 +322,13 @@ module.exports.rhymeRoomTalkFilter = function (player, message) {
                 //console.log("Rhyme timeout");
 
                 //send to everybody in the room
-                io.to("rhymeRoom").emit('musicOff');
+                io.to("rhymeRoom").emit("musicOff");
                 global.beatPlaying = false;
                 //change record
                 global.beat++;
-                if (global.beat > 3)
+                if (global.beat > 3) {
                     global.beat = 1;
+                }
 
                 var highscore = 0;
                 var winner = "";
@@ -340,46 +342,94 @@ module.exports.rhymeRoomTalkFilter = function (player, message) {
                 global.lastRhymes = [];
                 global.rhymingPlayers = {};
                 if (winner != "") {
-                    io.to("rhymeRoom").emit('godMessage', winner + " wins!" + highscore + " words uttered");
-
+                    io.to("rhymeRoom").emit("godMessage", winner + " wins!" + highscore + " words uttered");
                 }
             }, 8000);
 
             return message;
-        }//doesn't ryme
+        } //doesn't ryme
         else {
             return "...";
         }
-    }//doesn't exist
+    } //doesn't exist
     else {
         return "...";
     }
-}
+};
 
-//if enters when music is playing sent 
+//if enters when music is playing sent
 module.exports.rhymeRoomJoin = function (playerObject, roomId) {
-
     if (io.sockets.sockets[playerObject.id] != null && global.beatPlaying) {
-        io.sockets.sockets[playerObject.id].emit('musicEnter', global.beat);
-
+        io.sockets.sockets[playerObject.id].emit("musicEnter", global.beat);
     }
+};
 
-}
-
-//if enters when music is playing sent 
+//if enters when music is playing sent
 module.exports.rhymeRoomLeave = function (playerObject, roomId) {
-
     if (io.sockets.sockets[playerObject.id] != null) {
-        io.sockets.sockets[playerObject.id].emit('musicExit');
-
+        io.sockets.sockets[playerObject.id].emit("musicExit");
     }
-}
+};
 
 module.exports.darkRoomTalkFilter = function (player, message) {
     //I should declare them at the init but whatev
-    var nouns = ["ass", "climax", "coitus", "boner", "booty", "threesome", "tush", "lust", "orgy", "libido", "dildo", "kink",
-        "porno", "buttplug", "cunnilingus", "cybersex", "sex", "cum", "orgasm", "quickie", "intercourse", "cock", "penis", "dick", "pussy", "fanny", "vagina", "clit", "butt"];
-    var verbs = ["love", "shag", "mate", "seduce", "hook up", "hump", "arouse", "fornicate", "erect", "get some", "bone", "bang", "fuck", "lick", "suck", "cum", "penetrate", "screw", "sodomize", "arouse", "kiss", "pet", "masturbate", "come"];
+    var nouns = [
+        "ass",
+        "climax",
+        "coitus",
+        "boner",
+        "booty",
+        "threesome",
+        "tush",
+        "lust",
+        "orgy",
+        "libido",
+        "dildo",
+        "kink",
+        "porno",
+        "buttplug",
+        "cunnilingus",
+        "cybersex",
+        "sex",
+        "cum",
+        "orgasm",
+        "quickie",
+        "intercourse",
+        "cock",
+        "penis",
+        "dick",
+        "pussy",
+        "fanny",
+        "vagina",
+        "clit",
+        "butt",
+    ];
+    var verbs = [
+        "love",
+        "shag",
+        "mate",
+        "seduce",
+        "hook up",
+        "hump",
+        "arouse",
+        "fornicate",
+        "erect",
+        "get some",
+        "bone",
+        "bang",
+        "fuck",
+        "lick",
+        "suck",
+        "cum",
+        "penetrate",
+        "screw",
+        "sodomize",
+        "arouse",
+        "kiss",
+        "pet",
+        "masturbate",
+        "come",
+    ];
 
     var arr = rita.tokenize(message);
     var replaced = false;
@@ -395,15 +445,13 @@ module.exports.darkRoomTalkFilter = function (player, message) {
             arr[i] = rita.randomItem(nouns);
             replaced = true;
         }
-
     }
 
     return arr.join(" ");
-}
+};
 
 //player enters family room roles are assigned by the server
 module.exports.familyRoomJoin = function (playerObject, roomId) {
-
     var foundRole = false;
     for (var roleId in global.familyRoles) {
         //role not assigned
@@ -414,33 +462,31 @@ module.exports.familyRoomJoin = function (playerObject, roomId) {
         }
     }
 
-    if (!foundRole)
+    if (!foundRole) {
         console.log(playerObject.id + " becomes a fly");
+    }
 
     //assign a new role and send all the roles to the room
 
-    io.to("familyRoom").emit('updateRoles', playerObject.id, global.familyRoles);
+    io.to("familyRoom").emit("updateRoles", playerObject.id, global.familyRoles);
 
     //io.to("familyRoom").emit('assignRole', { id: playerObject.id, roleId: "wife", roleLabel: "Wife", rolePrompt: "You are feeling frustrated" });
     //send the existing roles
-}
+};
 
 //exit > free up the role
 //player enters family room roles are assigned by the server
 module.exports.familyRoomLeave = function (playerObject, roomId) {
-
     for (var roleId in global.familyRoles) {
         //role not assigned
         if (global.familyRoles[roleId] == playerObject.id) {
-
             global.familyRoles[roleId] = "";
             console.log(roleId + " is now free");
         }
     }
     //I don't need to send updated roles
     //io.to("familyRoom").emit('updateRoles', playerObject.id, global.familyRoles);
-
-}
+};
 
 //mute spectators on the server-side
 module.exports.familyRoomTalkFilter = function (player, message) {
@@ -453,12 +499,12 @@ module.exports.familyRoomTalkFilter = function (player, message) {
         }
     }
 
-    if (spectator)
+    if (spectator) {
         return "zzzz";
-    else
+    } else {
         return message;
-
-}
+    }
+};
 
 module.exports.VIPRoomJoin = function (playerObject, roomId) {
     //console.log(playerObject.nickName + " enters the VIP room");
@@ -469,14 +515,11 @@ module.exports.VIPRoomJoin = function (playerObject, roomId) {
 
         //force leave
         if (io.sockets.sockets[expelled] != null) {
-
             this.transferPlayer(expelled, "VIPRoom", "likelikeOutside", 121 * 2, 89 * 2);
-            io.to(expelled).emit('godMessage', "Sorry, we had to expel you to make room for " + playerObject.nickName);
+            io.to(expelled).emit("godMessage", "Sorry, we had to expel you to make room for " + playerObject.nickName);
         }
-
     }
-
-}
+};
 
 module.exports.VIPRoomIntro = function (newComerId, introObj) {
     //the problem with the auto expulsion in VIPRoom is that the intro is sent before it's the other person is expelled
@@ -485,10 +528,10 @@ module.exports.VIPRoomIntro = function (newComerId, introObj) {
 
     //console.log("Obsolete intro? " + gameState.players[introObj.id].room);
 
-    if (gameState.players[introObj.id].room != "VIPRoom")
+    if (gameState.players[introObj.id].room != "VIPRoom") {
         io.to("VIPRoom").emit("playerLeft", { id: introObj.id, room: "VIPRoom", disconnect: false });
-
-}
+    }
+};
 
 //force change room
 module.exports.transferPlayer = function (playerId, from, to, x, y) {
@@ -497,9 +540,8 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
     var s = io.sockets.sockets[playerId];
     var p = gameState.players[playerId];
 
-    if (s != null)
+    if (s != null) {
         if (p.room != null) {
-
             //var from = p.room;
             s.leave(from);
             s.join(to);
@@ -515,7 +557,6 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
             p.y = p.destinationY = y;
             p.new = false;
 
-
             //check if there is a custom function in the MOD to call at this point
             if (this[from + "Leave"] != null) {
                 //call it!
@@ -523,7 +564,6 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
             }
 
             io.to(to).emit("playerJoined", p);
-
 
             //check if there is a custom function in the MOD to call at this point
             if (this[to + "Join"] != null) {
@@ -539,9 +579,9 @@ module.exports.transferPlayer = function (playerId, from, to, x, y) {
                     npc.sendIntroTo(playerId);
                 }
             }
-
         }
-}
+    }
+};
 
 //if a player leaves the room on their own accord make sure they are removed from the list as well
 module.exports.VIPRoomLeave = function (playerObject, roomId) {
@@ -551,9 +591,7 @@ module.exports.VIPRoomLeave = function (playerObject, roomId) {
     if (index !== -1) {
         global.VIPList.splice(index, 1);
     }
-
-}
-
+};
 
 //a client can send generic action request to the server
 //the action logic is defined in functions named "on"+ActionId like this one
@@ -568,6 +606,6 @@ module.exports.onTVInteract = function (pId) {
     var TVState = !DATA.ROOMS.familyRoom.things.TV.visible;
     //change the visibility
     DATA.ROOMS.familyRoom.things.TV.visible = TVState;
-    //send a thing update too ALL clients, changing the client data and telling them to delete and recreate the sprite if they are in the room 
+    //send a thing update too ALL clients, changing the client data and telling them to delete and recreate the sprite if they are in the room
     io.sockets.emit("thingChanged", { thingId: "TV", room: "familyRoom", property: "visible", value: TVState });
-}
+};
