@@ -1,3 +1,9 @@
+## Rewrite it in Rust
+
+This is an attempt to rewrite Likelike Online's server side in Rust
+
+---
+
 # LIKELIKE Online
 
 The tiniest MMORPG. Choose an avatar and hang out with your friends in a virtual version of [LIKELIKE](http://likelike.org/shows) a videogame gallery in Pittsburgh, PA.
