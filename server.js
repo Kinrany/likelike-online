@@ -745,10 +745,7 @@ setInterval(function () {
     }
 }, 1000);
 
-/**
- * in my gallery people can swear but not use slurs, override bad-words list, and add my own, pardon for my french
- * @type {string[]}
- */
+//in my gallery people can swear but not use slurs, override bad-words list, and add my own, pardon for my french
 let myBadWords = my_bad_words();
 var filter = new Filter({ emptyList: true });
 filter.addWords(...myBadWords);
