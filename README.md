@@ -22,6 +22,9 @@ pnpm install
 # initialize .env with port number and admin users
 printf "ADMINS=user|password,user2|pass2\nPORT=3000\n" > .env
 
+# build Rust/Wasm modules
+pnpm run build
+
 # start the server
 # with default .env it will open at http://localhost:3000/
 pnpm start
