@@ -1,4 +1,4 @@
-const { hello } = require("./wasm/likelike_rs");
+const { my_bad_words } = require("./wasm/likelike_rs");
 
 //check README.md
 
@@ -745,26 +745,11 @@ setInterval(function () {
     }
 }, 1000);
 
-//in my gallery people can swear but not use slurs, override bad-words list, and add my own, pardon for my french
-let myBadWords = [
-    "chink",
-    "cunt",
-    "cunts",
-    "fag",
-    "fagging",
-    "faggitt",
-    "faggot",
-    "faggs",
-    "fagot",
-    "fagots",
-    "fags",
-    "jap",
-    "homo",
-    "nigger",
-    "niggers",
-    "n1gger",
-    "nigg3r",
-];
+/**
+ * in my gallery people can swear but not use slurs, override bad-words list, and add my own, pardon for my french
+ * @type {string[]}
+ */
+let myBadWords = my_bad_words();
 var filter = new Filter({ emptyList: true });
 filter.addWords(...myBadWords);
 
