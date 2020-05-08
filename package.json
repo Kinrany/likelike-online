@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "example",
     "scripts": {
+        "build": "cargo build --target wasm32-unknown-unknown --release && wasm-bindgen target/wasm32-unknown-unknown/release/likelike_rs.wasm --target nodejs --out-dir wasm",
         "lint": "eslint --ext .js .",
         "start": "node server.js"
     },

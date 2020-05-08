@@ -1,3 +1,5 @@
+const { hello } = require("./wasm/likelike_rs");
+
 //check README.md
 
 //load secret config vars
