@@ -563,7 +563,7 @@ function validateName(nn) {
         }
     }
 
-    var id = idByName(nn);
+    var id = idByName(nn, gameState.players);
     if (id != null) {
         duplicate = true;
         console.log("There is already a player named " + nn);
@@ -603,7 +603,7 @@ function adminCommand(adminSocket, str) {
                 break;
 
             case "mute":
-                var s = idByName(cmd[1]);
+                var s = idByName(cmd[1], gameState.players);
                 if (s != null) {
                     gameState.players[s].muted = true;
                 } else {
@@ -613,7 +613,7 @@ function adminCommand(adminSocket, str) {
                 break;
 
             case "unmute":
-                var s = idByName(cmd[1]);
+                var s = idByName(cmd[1], gameState.players);
                 if (s != null) {
                     gameState.players[s].muted = false;
                 } else {
@@ -701,11 +701,11 @@ function socketByName(nick) {
     return s;
 }
 
-function idByName(nick) {
+function idByName(nick, players) {
     var i = null;
-    for (var id in gameState.players) {
-        if (gameState.players.hasOwnProperty(id)) {
-            if (gameState.players[id].nickName.toUpperCase() == nick.toUpperCase()) {
+    for (var id in players) {
+        if (players.hasOwnProperty(id)) {
+            if (players[id].nickName.toUpperCase() == nick.toUpperCase()) {
                 i = id;
             }
         }
